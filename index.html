@@ -21,6 +21,10 @@
         border: 3px solid blue;
       }
 
+      .content-container .option-container {
+        color: orange;
+      }
+
       .content-container .result-container {
         display: flex;
         justify-content: space-around;
@@ -75,6 +79,12 @@
   </head>
   <body>
     <div class="content-container">
+        <div class="option-container">
+            <label for="sandwichMax">샌드위치</label>
+            <input id="sandwichMax" type="text" value="1">
+            <label for="breadMax">빵</label>
+            <input id="breadMax" type="text" value="1">
+        </div>
       <div class="result-container">
         <div class="result" id="result">
             <p id="sandwich">샌드위치: </p>
