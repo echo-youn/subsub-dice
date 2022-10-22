@@ -11,10 +11,17 @@ defineProps({
     <input id="sandwichMax" type="text" value="1">
     <label for="breadMax">빵</label>
     <input id="breadMax" type="text" value="1">
-    {{ msg }}
+    <p class="hi">
+      <p class="hello">{{ msg }}</p>
+    </p>
   </div>
 </template>
 
-<style scoped>
-
+<style scoped lang="scss">
+  .hi{
+    color: red;
+    .hello {
+      color: yellow;
+    }
+  }
 </style>
