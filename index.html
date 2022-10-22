@@ -1,141 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <button type="button" onclick="dice()">
-        DICE!
-    </button>
-    <p id="result">
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      .content-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 576px;
+        max-width: 992px;
+        margin: 0 auto;
+        height: 100vh;
+        border: 3px solid blue;
+      }
 
-    </p>
+      .content-container .result-container {
+        display: flex;
+        justify-content: space-around;
+        padding: 16px;
+        flex-grow: 1;
+      }
 
-<ins class="adsbygoogle"
+      .content-container .result-container .result {
+        color: black;
+      }
+
+      .content-container .buttons-container {
+        justify-content: space-around;
+        display: flex;
+      }
+
+      .content-container .buttons-container .buttons {
+        margin: 30px;
+      }
+
+      /* neumophism button */
+      .neumo-button {
+        padding: 1.5em 5em;
+        background: #efefef;
+        border: none;
+        border-radius: 0.5rem;
+        color: #444;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.2rem;
+        text-align: center;
+        outline: none;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+        box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.7),
+          -6px -6px 10px rgba(255, 255, 255, 0.5),
+          6px 6px 8px rgba(255, 255, 255, 0.075),
+          6px 6px 10px rgba(0, 0, 0, 0.15);
+      }
+      .neumo-button:hover {
+        box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.6),
+          -2px -2px 4px rgba(255, 255, 255, 0.4),
+          2px 2px 2px rgba(255, 255, 255, 0.05), 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .neumo-button:active {
+        box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.7),
+          inset -2px -2px 4px rgba(255, 255, 255, 0.5),
+          inset 2px 2px 2px rgba(255, 255, 255, 0.075),
+          inset 2px 2px 4px rgba(0, 0, 0, 0.15);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-container">
+      <div class="result-container">
+        <div class="result" id="result">
+            <p id="sandwich">샌드위치: </p>
+            <p id="bread">빵: </p>
+            <p id="cheese">치즈: </p>
+            <p id="vegitable">야채: </p>
+            <p id="saltedVegitable">절임류: </p>
+            <p id="sauce">소스: </p>
+            <p id="extra">추가: </p>
+        </div>
+      </div>
+      <div class="buttons-container">
+        <div class="buttons">
+          <button class="neumo-button" type="button" onclick="dice()">RANDOM! 🎲</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- <ins class="adsbygoogle"
 style="display:block"
 data-ad-format="autorelaxed"
 data-ad-client="ca-pub-5666170197208508"
-data-ad-slot="8813639140"></ins>
+data-ad-slot="8813639140"></ins> -->
     <script type="text/javascript">
-        // MAX 1
-        const sandwich = [
-            '이탈리안비엠티',
-            '써브웨이 클럽',
-            '스테이크 & 치즈',
-            '치킨 베이컨 아보카도',
-            '로스트 치킨',
-            '로티세리 바비큐 치킨',
-            'K-바베큐',
-            '폴드 포크 바비큐',
-            '쉬림프',
-            '피킨 데리야끼',
-            '스파이시 이탈리안',
-            '비엘티',
-            '치즈 슬라이스',
-            '햄',
-            '참치',
-            '에그마요',
-            '베지'
-        ]
+      const sandwich = [
+        "이탈리안비엠티",
+        "써브웨이 클럽",
+        "스테이크 & 치즈",
+        "치킨 베이컨 아보카도",
+        "로스트 치킨",
+        "로티세리 바비큐 치킨",
+        "K-바베큐",
+        "폴드 포크 바비큐",
+        "쉬림프",
+        "피킨 데리야끼",
+        "스파이시 이탈리안",
+        "비엘티",
+        "치즈 슬라이스",
+        "햄",
+        "참치",
+        "에그마요",
+        "베지",
+      ];
 
-        // MAX 1
-        const bread = [
-            '화이트',
-            '파마산 오레가노',
-            '위트',
-            '허니오트',
-            '하티',
-            '플랫브레드'
-        ]
+      const bread = [
+        "화이트",
+        "파마산 오레가노",
+        "위트",
+        "허니오트",
+        "하티",
+        "플랫브레드",
+      ];
+
+      const cheese = ["아메리칸 치즈", "슈레드 치즈", "모차렐라 치즈"];
+
+      const vegitable = ["양상추", "토마토", "오이", "피망", "양파"];
+
+      const saltedVegitable = ["피클", "올리브", "할라피뇨"];
+
+      const sauce = [
+        "알싸한 머스타드",
+        "과일향 레드와인식초",
+        "달콤한 스위트 어니언",
+        "새콤달콤한 허니 머스타드",
+        "매콜달콤한 스위트칠리",
+        "스모크 향 스모크 바비큐",
+        "크리미한 렌치",
+        "고소한 마요네즈",
+        "화끈하게 매운 핫칠리",
+        "이국적으로 매콤한 NEW 사우스웨스트 치폴레",
+        "알싸한 홀스래디쉬",
+        "이태리 엑스트라버진 올리브오일",
+        "소금",
+        "후추",
+      ];
+
+      const extra = ["에그마요", "페퍼로니", "베이컨", "아보카도", "오믈렛"];
+
+        const sandwichCapacity = {
+            min: 1,
+            max: 1,
+            current: 1
+        };
+        const breadCapacity = {
+            min: 1,
+            max: 1,
+            current: 1
+        };
+        const cheeseCapacity = {
+            min: 1,
+            max: 2,
+            current: 1
+        };
+        const vegitableCapacity = {
+            min: 0,
+            max: 5,
+            current: 4
+        }
+        const saltedVegitableCapacity = {
+            min: 0,
+            max: 3,
+            current: 2
+        }
+        const sauceCapacity = {
+            min: 0,
+            max: 3,
+            current: 2
+        }
+        const extraCapacity = {
+            min: 0,
+            max: 5,
+            currnet: 1
+        }
         
-        // MAX 1
-        const cheese = [
-            '아메리칸 치즈',
-            '슈레드 치즈',
-            '모차렐라 치즈'
-        ]
-
-        // MAX 5
-        const vegitable = [
-            '양상추',
-            '토마토',
-            '오이',
-            '피망',
-            '양파'
-        ]
-
-        // MAX 3
-        const saltedVegitable = [
-            '피클',
-            '올리브',
-            '할라피뇨'
-        ]
-
-        // MAX 3
-        const sauce = [
-            '알싸한 머스타드',
-            '과일향 레드와인식초',
-            '달콤한 스위트 어니언',
-            '새콤달콤한 허니 머스타드',
-            '매콜달콤한 스위트칠리',
-            '스모크 향 스모크 바비큐',
-            '크리미한 렌치',
-            '고소한 마요네즈',
-            '화끈하게 매운 핫칠리',
-            '이국적으로 매콤한 NEW 사우스웨스트 치폴레',
-            '알싸한 홀스래디쉬',
-            '이태리 엑스트라버진 올리브오일',
-            '소금',
-            '후추'
-        ]
-
-        // MAX 5
-        const extra = [
-            '에그마요',
-            '페퍼로니',
-            '베이컨',
-            '아보카도',
-            '오믈렛'
-        ]
-    
         function dice() {
-            let resultElement = document.getElementById('result')
-            resultElement.innerHTML = ''
+        let resultElement = document.getElementById("result");
+        resultElement.innerHTML = "";
 
-            let _sandwich = randomPick(sandwich, 1)
-            let _bread = randomPick(bread, 1)
-            let _cheese = randomPick(cheese, 1)
-            let _vegitable = randomPick(vegitable, 4)
-            let _saltedVegitable = randomPick(saltedVegitable, 2)
-            let _sauce = randomPick(sauce, 2)
-            let _extra = randomPick(extra, 2)
+        let _sandwich = randomPick(sandwich, sandwichCapacity.current);
+        let _bread = randomPick(bread, breadCapacity.current);
+        let _cheese = randomPick(cheese, cheeseCapacity.current);
+        let _vegitable = randomPick(vegitable, vegitableCapacity.current);
+        let _saltedVegitable = randomPick(saltedVegitable, saltedVegitableCapacity.current);
+        let _sauce = randomPick(sauce, sauceCapacity.current);
+        let _extra = randomPick(extra, extraCapacity.currnet);
 
-            resultElement.innerHTML += `<p>샌드위치: ${_sandwich}</p>`
-            resultElement.innerHTML += `<p>빵: ${_bread}</p>`
-            resultElement.innerHTML += `<p>치즈: ${_cheese}</p>`
-            resultElement.innerHTML += `<p>야채: ${_vegitable}</p>`
-            resultElement.innerHTML += `<p>절임류: ${_saltedVegitable}</p>`
-            resultElement.innerHTML += `<p>소스: ${_sauce}</p>`
-            resultElement.innerHTML += `<p>추가: ${_extra}</p>`
+        resultElement.innerHTML += `<p><b>샌드위치</b>: ${_sandwich}</p>`;
+        resultElement.innerHTML += `<p><b>빵</b>: ${_bread}</p>`;
+        resultElement.innerHTML += `<p><b>치즈</b>: ${_cheese}</p>`;
+        resultElement.innerHTML += `<p><b>야채</b>: ${_vegitable}</p>`;
+        resultElement.innerHTML += `<p><b>절임류</b>: ${_saltedVegitable}</p>`;
+        resultElement.innerHTML += `<p><b>소스</b>: ${_sauce}</p>`;
+        resultElement.innerHTML += `<p><b>추가</b>: ${_extra}</p>`;
+      }
+
+      function randomPick(picker, max) {
+        let result = [];
+        let _picker = JSON.parse(JSON.stringify(picker));
+
+        for (let i = 0; i < max; i++) {
+          let picked = Number.parseInt(Math.random() * 1000) % _picker.length;
+          result.push(_picker.splice(picked, 1)[0]);
         }
 
-        function randomPick(picker, max) {
-            let result = []
-            let _picker = JSON.parse(JSON.stringify(picker))
-            
-            for(let i = 0; i < max; i++) {
-                let picked = Number.parseInt(Math.random() * 1000) % _picker.length
-                result.push(_picker.splice(picked,1)[0])
-            }
-            
-            return result
-        }
+        return result;
+      }
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5666170197208508"
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5666170197208508"
     crossorigin="anonymous"></script>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</body>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+  </body>
 </html>
