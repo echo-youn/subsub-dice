@@ -29,8 +29,8 @@ defineProps({
     background-image: url('../assets/subway_logo.png');
     background-repeat: no-repeat;
     background-size: contain;
-    width: 300px;
-    height: 100px;
+    width: 200px;
+    height: 50px;
     margin: 10px auto;
   }
 </style>
